@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Copilot Learning Path for Project Managers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .icon-book { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>'); }
+        .icon-trending { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>'); }
+        .icon-bulb { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>'); }
+        .icon-cpu { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>'); }
+        .icon-brain { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>'); }
+        .level-icon {
+            width: 64px;
+            height: 64px;
+            background-size: 32px 32px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .expandable-content.expanded {
+            max-height: 2000px;
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen p-6">
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h1 class="text-4xl font-bold text-slate-800 mb-3">
+                AI & Copilot Learning Path
+            </h1>
+            <p class="text-lg text-slate-600 mb-6">
+                A structured curriculum for Project Managers to master AI-powered productivity and leadership
+            </p>
+            
+            <!-- Progress Bar -->
+            <div class="bg-slate-100 rounded-full h-4 overflow-hidden">
+                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+            <p id="progressText" class="text-sm text-slate-500 mt-2 text-right">0% Complete</p>
+        </div>
+
+        <!-- Level 1 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 hover:shadow-xl transition-all duration-300">
+            <div class="cursor-pointer" onclick="toggleLevel(1)">
+                <div class="flex items-start p-6 gap-4">
+                    <div class="bg-blue-500 p-4 rounded-lg text-white shrink-0 level-icon icon-book"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-sm font-semibold text-slate-500">LEVEL 1</span>
+                            <span id="complete-badge-1" class="hidden text-green-500">✓ Complete</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Copilot Foundations for PMs</h2>
+                        <p class="text-slate-600">Build foundational knowledge of Microsoft 365 Copilot and AI-powered productivity tools</p>
+                    </div>
+                    <div class="text-slate-400 shrink-0">
+                        <svg id="chevron-1" class="chevron" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="level-1" class="expandable-content border-t border-slate-200 bg-slate-50 p-6">
+                <!-- Module 1a -->
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m1a')" class="mt-1 shrink-0">
+                            <div id="check-m1a" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-all hover:border-blue-500">
+                                <span class="hidden text-white text-xs">✓</span>
+                            </div>
+                        </button>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 mb-1">Introduction to Microsoft 365 Copilot</h3>
+                            <div class="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span class="font-medium">Microsoft Learn</span>
+                                <span>•</span>
+                                <span>30 min</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">Core concepts of Copilot and responsible AI in Microsoft 365</p>
+                            <a href="https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-copilot/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                                Access Course
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 1b -->
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m1b')" class="mt-1 shrink-0">
+                            <div id="check-m1b" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-all hover:border-blue-500">
+                                <span class="hidden text-white text-xs">✓</span>
+                            </div>
+                        </button>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 mb-1">Get Started with Microsoft 365 Copilot</h3>
+                            <div class="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span class="font-medium">Microsoft Learn</span>
+                                <span>•</span>
+                                <span>1-2 hours</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">Comprehensive learning path covering Copilot across Microsoft 365 apps</p>
+                            <a href="https://learn.microsoft.com/en-us/training/paths/get-started-with-microsoft-365-copilot/" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                                Access Course
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Outcomes -->
+                <div class="bg-blue-50 rounded-lg p-5 border border-blue-100">
+                    <h4 class="font-semibold text-slate-800 mb-3">Learning Outcomes</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Understand what Copilot is and how it integrates with Microsoft 365</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Learn responsible AI principles in the Microsoft ecosystem</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Gain hands-on experience with Copilot features</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 2 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 hover:shadow-xl transition-all duration-300">
+            <div class="cursor-pointer" onclick="toggleLevel(2)">
+                <div class="flex items-start p-6 gap-4">
+                    <div class="bg-green-500 p-4 rounded-lg text-white shrink-0 level-icon icon-trending"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-sm font-semibold text-slate-500">LEVEL 2</span>
+                            <span id="complete-badge-2" class="hidden text-green-500">✓ Complete</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">AI in Project Management</h2>
+                        <p class="text-slate-600">Connect AI capabilities to real-world project management workflows</p>
+                    </div>
+                    <div class="text-slate-400 shrink-0">
+                        <svg id="chevron-2" class="chevron" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="level-2" class="expandable-content border-t border-slate-200 bg-slate-50 p-6">
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m2')" class="mt-1 shrink-0">
+                            <div id="check-m2" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-all hover:border-blue-500">
+                                <span class="hidden text-white text-xs">✓</span>
+                            </div>
+                        </button>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 mb-1">AI in Project Management</h3>
+                            <div class="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span class="font-medium">LinkedIn Learning</span>
+                                <span>•</span>
+                                <span>1 hour</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">Apply AI to planning, risk management, reporting, and stakeholder communication</p>
+                            <a href="https://www.linkedin.com/learning/ai-in-project-management" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                                Access Course
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-5 border border-blue-100">
+                    <h4 class="font-semibold text-slate-800 mb-3">Learning Outcomes</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Identify AI applications in planning and scheduling</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Use AI for risk identification and mitigation</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Enhance stakeholder communication with AI tools</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 hover:shadow-xl transition-all duration-300">
+            <div class="cursor-pointer" onclick="toggleLevel(3)">
+                <div class="flex items-start p-6 gap-4">
+                    <div class="bg-purple-500 p-4 rounded-lg text-white shrink-0 level-icon icon-bulb"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-sm font-semibold text-slate-500">LEVEL 3</span>
+                            <span id="complete-badge-3" class="hidden text-green-500">✓ Complete</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Prompting & Workflow Design</h2>
+                        <p class="text-slate-600">Master the art and science of effective prompt engineering for AI assistants</p>
+                    </div>
+                    <div class="text-slate-400 shrink-0">
+                        <svg id="chevron-3" class="chevron" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="level-3" class="expandable-content border-t border-slate-200 bg-slate-50 p-6">
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m3')" class="mt-1 shrink-0">
+                            <div id="check-m3" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-all hover:border-blue-500">
+                                <span class="hidden text-white text-xs">✓</span>
+                            </div>
+                        </button>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 mb-1">Introduction to Prompt Engineering for Generative AI</h3>
+                            <div class="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span class="font-medium">LinkedIn Learning</span>
+                                <span>•</span>
+                                <span>1.5 hours</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">Build reusable prompt patterns for meeting summaries, risk analysis, and requirements breakdown</p>
+                            <a href="https://www.linkedin.com/learning/introduction-to-prompt-engineering-for-generative-ai-24636124" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                                Access Course
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-5 border border-blue-100">
+                    <h4 class="font-semibold text-slate-800 mb-3">Learning Outcomes</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Structure effective prompts for consistent results</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Create reusable prompt templates for PM tasks</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Optimize AI outputs for meeting summaries and documentation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 4 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 hover:shadow-xl transition-all duration-300">
+            <div class="cursor-pointer" onclick="toggleLevel(4)">
+                <div class="flex items-start p-6 gap-4">
+                    <div class="bg-orange-500 p-4 rounded-lg text-white shrink-0 level-icon icon-cpu"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-sm font-semibold text-slate-500">LEVEL 4</span>
+                            <span id="complete-badge-4" class="hidden text-green-500">✓ Complete</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Understanding Large Language Models</h2>
+                        <p class="text-slate-600">Develop technical fluency to communicate effectively with AI/ML teams</p>
+                    </div>
+                    <div class="text-slate-400 shrink-0">
+                        <svg id="chevron-4" class="chevron" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="level-4" class="expandable-content border-t border-slate-200 bg-slate-50 p-6">
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m4')" class="mt-1 shrink-0">
+                            <div id="check-m4" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition-all hover:border-blue-500">
+                                <span class="hidden text-white text-xs">✓</span>
+                            </div>
+                        </button>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 mb-1">Intro to Large Language Models</h3>
+                            <div class="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span class="font-medium">YouTube (Andrej Karpathy)</span>
+                                <span>•</span>
+                                <span>1 hour</span>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3">Non-technical overview of how LLMs work, tokens, context windows, and model capabilities</p>
+                            <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors">
+                                Access Course
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-5 border border-blue-100">
+                    <h4 class="font-semibold text-slate-800 mb-3">Learning Outcomes</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Understand LLM architecture and capabilities</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Learn about tokens, context windows, and fine-tuning</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-700 text-sm">
+                            <span class="text-blue-500 mt-1">✓</span>
+                            <span>Communicate technical concepts with engineering teams</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 5 -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6 hover:shadow-xl transition-all duration-300">
+            <div class="cursor-pointer" onclick="toggleLevel(5)">
+                <div class="flex items-start p-6 gap-4">
+                    <div class="bg-red-500 p-4 rounded-lg text-white shrink-0 level-icon icon-brain"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-sm font-semibold text-slate-500">LEVEL 5</span>
+                            <span id="complete-badge-5" class="hidden text-green-500">✓ Complete</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">Leading AI-Enabled Projects</h2>
+                        <p class="text-slate-600">Transform your PM practice with strategic AI integration and leadership</p>
+                    </div>
+                    <div class="text-slate-400 shrink-0">
+                        <svg id="chevron-5" class="chevron" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="level-5" class="expandable-content border-t border-slate-200 bg-slate-50 p-6">
+                <div class="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors mb-4">
+                    <div class="flex items-start gap-4">
+                        <button onclick="toggleComplete('m5')" class="mt-1 shrink-0">
+                            <div id="check-m5" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center

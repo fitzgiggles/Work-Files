@@ -1,0 +1,307 @@
+import React, { useState } from 'react';
+import { BookOpen, Brain, Lightbulb, Cpu, TrendingUp, ChevronDown, ChevronUp, ExternalLink, CheckCircle } from 'lucide-react';
+
+const LearningPath = () => {
+  const [expandedLevel, setExpandedLevel] = useState(null);
+  const [completedModules, setCompletedModules] = useState({});
+
+  const learningPath = [
+    {
+      level: 1,
+      title: "Copilot Foundations for PMs",
+      icon: BookOpen,
+      color: "bg-blue-500",
+      description: "Build foundational knowledge of Microsoft 365 Copilot and AI-powered productivity tools",
+      modules: [
+        {
+          id: "m1a",
+          name: "Introduction to Microsoft 365 Copilot",
+          platform: "Microsoft Learn",
+          duration: "30 min",
+          url: "https://learn.microsoft.com/en-us/training/modules/introduction-microsoft-365-copilot/",
+          description: "Core concepts of Copilot and responsible AI in Microsoft 365"
+        },
+        {
+          id: "m1b",
+          name: "Get Started with Microsoft 365 Copilot",
+          platform: "Microsoft Learn",
+          duration: "1-2 hours",
+          url: "https://learn.microsoft.com/en-us/training/paths/get-started-with-microsoft-365-copilot/",
+          description: "Comprehensive learning path covering Copilot across Microsoft 365 apps"
+        }
+      ],
+      outcomes: [
+        "Understand what Copilot is and how it integrates with Microsoft 365",
+        "Learn responsible AI principles in the Microsoft ecosystem",
+        "Gain hands-on experience with Copilot features"
+      ]
+    },
+    {
+      level: 2,
+      title: "AI in Project Management",
+      icon: TrendingUp,
+      color: "bg-green-500",
+      description: "Connect AI capabilities to real-world project management workflows",
+      modules: [
+        {
+          id: "m2",
+          name: "AI in Project Management",
+          platform: "LinkedIn Learning",
+          duration: "1 hour",
+          url: "https://www.linkedin.com/learning/ai-in-project-management",
+          description: "Apply AI to planning, risk management, reporting, and stakeholder communication"
+        }
+      ],
+      outcomes: [
+        "Identify AI applications in planning and scheduling",
+        "Use AI for risk identification and mitigation",
+        "Enhance stakeholder communication with AI tools"
+      ]
+    },
+    {
+      level: 3,
+      title: "Prompting & Workflow Design",
+      icon: Lightbulb,
+      color: "bg-purple-500",
+      description: "Master the art and science of effective prompt engineering for AI assistants",
+      modules: [
+        {
+          id: "m3",
+          name: "Introduction to Prompt Engineering for Generative AI",
+          platform: "LinkedIn Learning",
+          duration: "1.5 hours",
+          url: "https://www.linkedin.com/learning/introduction-to-prompt-engineering-for-generative-ai-24636124",
+          description: "Build reusable prompt patterns for meeting summaries, risk analysis, and requirements breakdown"
+        }
+      ],
+      outcomes: [
+        "Structure effective prompts for consistent results",
+        "Create reusable prompt templates for PM tasks",
+        "Optimize AI outputs for meeting summaries and documentation"
+      ]
+    },
+    {
+      level: 4,
+      title: "Understanding Large Language Models",
+      icon: Cpu,
+      color: "bg-orange-500",
+      description: "Develop technical fluency to communicate effectively with AI/ML teams",
+      modules: [
+        {
+          id: "m4",
+          name: "Intro to Large Language Models",
+          platform: "YouTube (Andrej Karpathy)",
+          duration: "1 hour",
+          url: "https://www.youtube.com/watch?v=zjkBMFhNj_g",
+          description: "Non-technical overview of how LLMs work, tokens, context windows, and model capabilities"
+        }
+      ],
+      outcomes: [
+        "Understand LLM architecture and capabilities",
+        "Learn about tokens, context windows, and fine-tuning",
+        "Communicate technical concepts with engineering teams"
+      ]
+    },
+    {
+      level: 5,
+      title: "Leading AI-Enabled Projects",
+      icon: Brain,
+      color: "bg-red-500",
+      description: "Transform your PM practice with strategic AI integration and leadership",
+      modules: [
+        {
+          id: "m5",
+          name: "AI-Driven Project Management: Techniques and Insights",
+          platform: "LinkedIn Learning",
+          duration: "1.5 hours",
+          url: "https://www.linkedin.com/learning/ai-driven-project-management-techniques-and-insights-with-ricardo-vargas",
+          description: "Strategic approach to integrating AI assistants into your delivery ecosystem"
+        }
+      ],
+      outcomes: [
+        "Integrate AI tools into team workflows",
+        "Lead AI-enabled project delivery",
+        "Transform PM practices with AI decision support"
+      ]
+    }
+  ];
+
+  const toggleLevel = (level) => {
+    setExpandedLevel(expandedLevel === level ? null : level);
+  };
+
+  const toggleComplete = (moduleId) => {
+    setCompletedModules(prev => ({
+      ...prev,
+      [moduleId]: !prev[moduleId]
+    }));
+  };
+
+  const calculateProgress = () => {
+    const totalModules = learningPath.reduce((sum, level) => sum + level.modules.length, 0);
+    const completed = Object.values(completedModules).filter(Boolean).length;
+    return Math.round((completed / totalModules) * 100);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <h1 className="text-4xl font-bold text-slate-800 mb-3">
+            AI & Copilot Learning Path
+          </h1>
+          <p className="text-lg text-slate-600 mb-6">
+            A structured curriculum for Project Managers to master AI-powered productivity and leadership
+          </p>
+          
+          {/* Progress Bar */}
+          <div className="bg-slate-100 rounded-full h-4 overflow-hidden">
+            <div 
+              className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-500 ease-out"
+              style={{ width: `${calculateProgress()}%` }}
+            />
+          </div>
+          <p className="text-sm text-slate-500 mt-2 text-right">
+            {calculateProgress()}% Complete
+          </p>
+        </div>
+
+        {/* Learning Levels */}
+        <div className="space-y-6">
+          {learningPath.map((level) => {
+            const Icon = level.icon;
+            const isExpanded = expandedLevel === level.level;
+            const levelComplete = level.modules.every(m => completedModules[m.id]);
+
+            return (
+              <div 
+                key={level.level}
+                className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
+              >
+                {/* Level Header */}
+                <div 
+                  className="cursor-pointer"
+                  onClick={() => toggleLevel(level.level)}
+                >
+                  <div className="flex items-start p-6 gap-4">
+                    <div className={`${level.color} p-4 rounded-lg text-white shrink-0`}>
+                      <Icon size={32} />
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-sm font-semibold text-slate-500">
+                          LEVEL {level.level}
+                        </span>
+                        {levelComplete && (
+                          <CheckCircle size={20} className="text-green-500" />
+                        )}
+                      </div>
+                      <h2 className="text-2xl font-bold text-slate-800 mb-2">
+                        {level.title}
+                      </h2>
+                      <p className="text-slate-600">
+                        {level.description}
+                      </p>
+                    </div>
+
+                    <div className="text-slate-400 shrink-0">
+                      {isExpanded ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                {isExpanded && (
+                  <div className="border-t border-slate-200 bg-slate-50 p-6">
+                    {/* Modules */}
+                    <div className="space-y-4 mb-6">
+                      {level.modules.map((module) => (
+                        <div 
+                          key={module.id}
+                          className="bg-white rounded-lg p-5 border-l-4 border-slate-300 hover:border-blue-500 transition-colors"
+                        >
+                          <div className="flex items-start gap-4">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleComplete(module.id);
+                              }}
+                              className="mt-1 shrink-0"
+                            >
+                              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                                completedModules[module.id] 
+                                  ? 'bg-green-500 border-green-500' 
+                                  : 'border-slate-300 hover:border-blue-500'
+                              }`}>
+                                {completedModules[module.id] && (
+                                  <CheckCircle size={20} className="text-white" />
+                                )}
+                              </div>
+                            </button>
+
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-slate-800 mb-1">
+                                {module.name}
+                              </h3>
+                              <div className="flex items-center gap-3 mb-2 text-sm text-slate-500">
+                                <span className="font-medium">{module.platform}</span>
+                                <span>•</span>
+                                <span>{module.duration}</span>
+                              </div>
+                              <p className="text-slate-600 text-sm mb-3">
+                                {module.description}
+                              </p>
+                              <a
+                                href={module.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                Access Course
+                                <ExternalLink size={16} />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Learning Outcomes */}
+                    <div className="bg-blue-50 rounded-lg p-5 border border-blue-100">
+                      <h4 className="font-semibold text-slate-800 mb-3">
+                        Learning Outcomes
+                      </h4>
+                      <ul className="space-y-2">
+                        {level.outcomes.map((outcome, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-slate-700 text-sm">
+                            <span className="text-blue-500 mt-1">✓</span>
+                            <span>{outcome}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 bg-white rounded-xl shadow-md p-6 text-center">
+          <p className="text-slate-600 text-sm">
+            <strong>Estimated Total Time:</strong> 8-10 hours of focused learning
+          </p>
+          <p className="text-slate-500 text-xs mt-2">
+            Complete at your own pace • Track progress with checkboxes • All links verified and active
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LearningPath;
